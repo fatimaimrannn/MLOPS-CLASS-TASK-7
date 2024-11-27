@@ -1,28 +1,32 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
 import pickle
 
-# Load the preprocessed data
-data = pd.read_csv('processed_data.csv')
+# Step 1: Load the preprocessed data
+processed_data_file = "processed_data.csv"
+df = pd.read_csv(processed_data_file)
 
-# Select features and target
-X = data[['humidity_2m', 'wind_speed_10m', 'precipitation']]  # Features
-y = data['temperature_2m']  # Target (temperature)
+# Step 2: Verify column names to ensure they are as expected
+print("Columns in the dataset:", df.columns)
 
-# Split the data into training and testing sets
+# Step 3: Define features (X) and target (y)
+# We are using 'Wind Speed' and 'Humidity' as features to predict 'Temperature'
+X = df[['Humidity', 'Wind Speed']]  # Features
+y = df['Temperature']  # Target
+
+# Step 4: Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the linear regression model
+# Step 5: Initialize and train the linear regression model
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-# Evaluate the model
-y_pred = model.predict(X_test)
-mse = mean_squared_error(y_test, y_pred)
-print(f'Mean Squared Error: {mse}')
+# Step 6: Print the model's score (R-squared) on the test set
+print("Model R-squared on test data:", model.score(X_test, y_test))
 
-# Save the model
-with open('model.pkl', 'wb') as f:
+# Step 7: Save the trained model to a pickle file
+with open("model.pkl", "wb") as f:
     pickle.dump(model, f)
+
+print("Model saved as model.pkl")
