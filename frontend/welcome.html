@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Weather Prediction App</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            background: linear-gradient(120deg, #00c6ff, #0072ff);
+            animation: gradientShift 6s infinite alternate;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background: linear-gradient(120deg, #00c6ff, #0072ff); }
+            50% { background: linear-gradient(120deg, #6e45e2, #88d3ce); }
+            100% { background: linear-gradient(120deg, #ff7e5f, #feb47b); }
+        }
+
+        h1 {
+            font-size: 4rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            animation: fadeIn 1.5s;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: #88d3ce;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: #6e45e2;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Weather Prediction App</h1>
+    <div class="btn-container">
+        <button onclick="window.location.href='login.html'">Login</button>
+        <button onclick="window.location.href='signup.html'">Signup</button>
+    </div>
+    <footer>Weather Prediction App &copy; 2024</footer>
+</body>
+</html>
