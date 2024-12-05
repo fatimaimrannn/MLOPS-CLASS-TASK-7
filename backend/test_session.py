@@ -4,7 +4,7 @@ BASE_URL = "http://127.0.0.1:5000"
 
 def test_session():
     # Test Login
-    login_data = {"username": "testuser", "password": "securepassword"}
+    login_data = {"username": "hadia", "password": "123456"}
     login_response = requests.post(f"{BASE_URL}/login", json=login_data)
     print("Login Response:", login_response.json())
 

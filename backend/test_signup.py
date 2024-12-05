@@ -6,9 +6,9 @@ BASE_URL = "http://127.0.0.1:5000"
 def test_signup():
     # Data for testing signup
     test_user = {
-        "username": "testuser",
-        "email": "testuser@example.com",
-        "password": "securepassword"
+        "username": "hassan",
+        "email": "hassan@gmail.com",
+        "password": "123456"
     }
 
     # Make a POST request to the /signup endpoint

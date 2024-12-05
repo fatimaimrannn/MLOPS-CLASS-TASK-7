@@ -5,7 +5,7 @@ from datetime import datetime
 # Replace with your new OpenWeatherMap API key
 api_key = "da6af6be46bb6244bdb242321682efc0"
 city = "London"  # Replace with the desired city
-url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&cnt=5&appid={api_key}"
+url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&cnt=15&appid={api_key}"
 
 response = requests.get(url)
 
