@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/d6841d6aaddb47df80246c974a290488/artifacts
+end_time: 1733420502289
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d6841d6aaddb47df80246c974a290488
+run_name: rebellious-bug-259
+run_uuid: d6841d6aaddb47df80246c974a290488
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733420497124
+status: 3
+tags: []
+user_id: User

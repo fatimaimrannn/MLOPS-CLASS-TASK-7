@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/31d1383a15a349419fc9183cc4946dd8/artifacts
+deleted_time: 1733420530333
+end_time: 1733420224861
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 31d1383a15a349419fc9183cc4946dd8
+run_name: nosy-goose-504
+run_uuid: 31d1383a15a349419fc9183cc4946dd8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733420221982
+status: 4
+tags: []
+user_id: User
