@@ -59,8 +59,7 @@ jobs:
       # Deploy to Minikube (or your target Kubernetes environment)
       - name: Deploy to Minikube
         run: |
-          kubectl set image deployment/weather-project-backend weather-project-backend=fatimaimran/weather-project-backend:$GITHUB_SHA
-          kubectl set image deployment/weather-project-frontend weather-project-frontend=fatimaimran/weather-project-frontend:$GITHUB_SHA
+          
 
       # Optional: Check if the services are running properly in Minikube
       - name: Check Minikube services
