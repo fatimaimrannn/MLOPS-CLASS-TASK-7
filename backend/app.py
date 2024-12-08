@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 import pickle
@@ -12,9 +13,21 @@ CORS(app)  # Enable cross-origin requests
 # Secret key for session management (should be secure in production)
 app.secret_key = "supersecretkey"
 
-# Load the trained model
-with open('../model.pkl', 'rb') as model_file:
-    model = pickle.load(model_file)
+# Determine the path to model.pkl dynamically
+base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the directory of the current script
+model_path = os.path.join(base_dir, '../model.pkl')  # Adjust path relative to backend/
+
+try:
+    with open(model_path, 'rb') as model_file:
+        model = pickle.load(model_file)
+except FileNotFoundError as e:
+    raise FileNotFoundError(f"Model file not found: {e}")
+
+# Root Route
+@app.route('/')
+def home():
+    return jsonify({'message': 'Welcome to the Weather Prediction API!'})
+
 
 # Predict Route
 @app.route('/predict', methods=['POST'])
@@ -108,4 +121,4 @@ def protected():
     return jsonify({'message': f'Hello, {session["username"]}! This is a protected resource.'}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

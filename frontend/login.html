@@ -114,7 +114,7 @@
                 password: document.getElementById('password').value,
             };
 
-            fetch('http://127.0.0.1:5000/login', {
+            fetch('http://backend:5000/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
@@ -125,7 +125,7 @@
                     alert(result.error);
                 } else {
                     alert(result.message);
-                    window.location.href = 'index.html';
+                    window.location.href = 'prediction.html';
                 }
             })
             .catch(err => console.error('Error:', err));

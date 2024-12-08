@@ -3,195 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Weather Predictor</title>
+    <title>Welcome - Weather Prediction App</title>
     <style>
-        /* Body Styling */
+        /* General Styling */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            height: 100vh;
             color: white;
+            background: linear-gradient(120deg, #00c6ff, #0072ff);
+            animation: gradientShift 6s infinite alternate;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(to bottom, #003973, #E5E5BE); /* Sky blue gradient */
-            animation: colorChange 15s infinite alternate;
+            height: 100vh;
             overflow: hidden;
         }
 
-        /* Gradient Animation */
-        @keyframes colorChange {
-            0% { background: linear-gradient(to bottom, #003973, #E5E5BE); }
-            50% { background: linear-gradient(to bottom, #141E30, #243B55); }
-            100% { background: linear-gradient(to bottom, #0F2027, #2C5364); }
-        }
-
-        /* Container Styling */
-        .container {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            padding: 40px 60px;
-            text-align: center;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+        @keyframes gradientShift {
+            0% { background: linear-gradient(120deg, #00c6ff, #0072ff); }
+            50% { background: linear-gradient(120deg, #6e45e2, #88d3ce); }
+            100% { background: linear-gradient(120deg, #ff7e5f, #feb47b); }
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 4rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
-            color: #00d4ff;
-            text-shadow: 0px 0px 10px rgba(0, 212, 255, 0.7);
+            animation: fadeIn 1s;
         }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #FFCC00;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            border: 1px solid #00d4ff;
-            outline: none;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            background: rgba(0, 0, 0, 0.3);
-            border-color: #FFCC00;
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            animation: fadeIn 1.5s;
         }
 
         button {
             padding: 15px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            background: #88d3ce;
             border: none;
-            border-radius: 30px;
             color: white;
-            background: linear-gradient(90deg, #00d4ff, #141E30);
+            font-size: 1.5rem;
+            border-radius: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, background 0.3s;
         }
 
         button:hover {
             transform: scale(1.1);
-            background: linear-gradient(90deg, #141E30, #00d4ff);
-            box-shadow: 0px 10px 20px rgba(0, 212, 255, 0.7);
+            background: #6e45e2;
         }
 
-        #result {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            color: #00FF7F;
-            text-shadow: 0px 0px 10px rgba(0, 255, 127, 0.7);
-        }
-
-        /* Floating Weather Icons */
-        .icon {
+        footer {
             position: absolute;
-            width: 50px;
-            height: 50px;
-            animation: floatIcons 10s infinite ease-in-out;
-        }
-
-        .icon:nth-child(1) {
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .icon:nth-child(2) {
-            left: 30%;
-            animation-delay: 2s;
-        }
-
-        .icon:nth-child(3) {
-            left: 50%;
-            animation-delay: 4s;
-        }
-
-        .icon:nth-child(4) {
-            left: 70%;
-            animation-delay: 6s;
-        }
-
-        .icon:nth-child(5) {
-            left: 90%;
-            animation-delay: 8s;
-        }
-
-        @keyframes floatIcons {
-            0% { bottom: -50px; opacity: 0; }
-            50% { opacity: 1; }
-            100% { bottom: 110%; opacity: 0; }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            button {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
+            bottom: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
 <body>
-    <img src="https://img.icons8.com/ios/100/cloud.png" class="icon" alt="cloud">
-    <img src="https://img.icons8.com/ios/100/sun.png" class="icon" alt="sun">
-    <img src="https://img.icons8.com/ios/100/rain.png" class="icon" alt="rain">
-    <img src="https://img.icons8.com/ios/100/snowflake.png" class="icon" alt="snow">
-    <img src="https://img.icons8.com/ios/100/wind.png" class="icon" alt="wind">
-
-    <div class="container">
-        <h1>Futuristic Weather Predictor</h1>
-        <form id="predictionForm">
-            <label for="humidity">Humidity</label>
-            <input type="number" id="humidity" name="humidity" placeholder="Enter Humidity" required>
-
-            <label for="windSpeed">Wind Speed</label>
-            <input type="number" id="windSpeed" name="windSpeed" placeholder="Enter Wind Speed" required>
-
-            <button type="button" onclick="getPrediction()">Predict Now</button>
-        </form>
-        <h2 id="result"></h2>
+    <h1>Welcome to Weather Prediction App</h1>
+    <div class="btn-container">
+        <button onclick="window.location.href='login.html'">Login</button>
+        <button onclick="window.location.href='signup.html'">Signup</button>
     </div>
-
-    <script>
-        async function getPrediction() {
-            const humidity = document.getElementById("humidity").value;
-            const windSpeed = document.getElementById("windSpeed").value;
-
-            const response = await fetch("http://127.0.0.1:5000/predict", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "Humidity": parseFloat(humidity),
-                    "Wind Speed": parseFloat(windSpeed)
-                })
-            });
-
-            const result = await response.json();
-            document.getElementById("result").innerText = "Prediction: " + result.prediction;
-        }
-    </script>
+    <footer>Weather Prediction App &copy; 2024</footer>
 </body>
 </html>

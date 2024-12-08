@@ -18,13 +18,27 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      # Pull Docker image from DockerHub
-      - name: Pull Docker image from DockerHub
+      # Build Docker images using Docker Compose (this will build images for all services in the Compose file)
+      - name: Build Docker images with Docker Compose
         run: |
-          docker pull fatimaimran/weather-project:$GITHUB_SHA
+          docker-compose -f docker-compose.yml build  # Use the path to your Docker Compose file
 
-      # Deploy the app to Minikube
+      # Push Docker images to DockerHub (using the build context from Compose)
+      - name: Push Docker images to DockerHub
+        run: |
+          docker-compose -f docker-compose.yml push  # Push all services defined in the Compose file
+
+      # Deploy to Minikube (or any other Kubernetes service)
       - name: Deploy to Minikube
         run: |
-          kubectl config use-context minikube
-          kubectl set image deployment/weather-project weather-project=fatimaimran/weather-project:$GITHUB_SHA
+          kubectl config use-context minikube  # Switch context to Minikube
+          
+          # Optionally, update the image in your deployment
+          kubectl set image deployment/weather-project-backend weather-project-backend=fatimaimran/weather-project:$GITHUB_SHA
+          kubectl set image deployment/weather-project-frontend weather-project-frontend=fatimaimran/weather-project:$GITHUB_SHA
+
+      # Optional: Check if the services are running properly
+      - name: Check Minikube services
+        run: |
+          kubectl get pods
+          kubectl get services

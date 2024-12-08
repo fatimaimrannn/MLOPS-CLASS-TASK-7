@@ -1,0 +1,9 @@
+Flask==2.2.3
+Werkzeug==2.2.3
+flask_cors  # Version compatible with your Flask version
+pytest==6.2.5  # For testing
+requests==2.25.1  # For making HTTP requests (if used for testing or in any other part of the app)
+pandas==1.3.3  # For handling dataframes in your predict route
+SQLAlchemy==1.4.22  # For working with your database (this is inferred from your use of `SessionLocal` and `User`)
+pandas==1.3.3  
+scikit-learn==0.24.2
