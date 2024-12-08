@@ -15,7 +15,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
 
 # Create SQLite engine
-DATABASE_URL = "sqlite:////app/db/users.db"  # Absolute path to the db file inside the container
+DATABASE_URL = "sqlite:///users.db"  # SQLite database in the backend folder
 engine = create_engine(DATABASE_URL)
 
 # Create tables
