@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout code
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -20,11 +21,16 @@ jobs:
         with:
           python-version: '3.8'  # Specify your Python version here
 
-      # Install dependencies (make sure to include your requirements.txt)
+      # Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Adjust path to your requirements file if needed
+
+      # Generate model.pkl using model.py (This step runs before Docker build)
+      - name: Generate model.pkl
+        run: |
+          python model.py  # Run the script that generates model.pkl
 
       # Start the backend app (make sure it's running before tests)
       - name: Start backend server
@@ -38,12 +44,17 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build  # This job depends on the 'build' job above
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2  # Check out the code to ensure it matches the latest commit
+
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # Build Docker Image
       - name: Build Docker Image
-        run: docker build -t fatimaimran/frontend-2 .
+        run: docker build -t fatimaimran/frontend-2 .  # Build Docker image for frontend
+
+      # Push Docker Image
       - name: Push Docker Image
-        run: docker push fatimaimran/frontend-2
+        run: docker push fatimaimran/frontend-2  # Push Docker image to Docker Hub
