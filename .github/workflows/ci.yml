@@ -36,39 +36,14 @@ jobs:
         run: |
           pytest backend/test_login.py backend/test_signup.py backend/test_session.py  # List your test files here
 
-      # Set up Docker
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
-
-      # Install Docker Compose V2 (Integrated with Docker CLI)
-      - name: Install Docker Compose V2
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo apt-get install -y docker-compose-plugin  # This installs Docker Compose V2
-
-      # Build Docker images with Docker Compose
-      - name: Build Docker images with Docker Compose
-        run: |
-          docker compose -f docker-compose.yml build  # Build both frontend and backend
-
-      # Start Docker Compose services in detached mode
-      - name: Start Docker Compose services
-        run: |
-          docker compose up -d  # Start the services in the background
-
-      # Run tests inside the running backend container
-      - name: Run integration tests
-        run: |
-          docker compose exec backend pytest backend/test_login.py backend/test_signup.py backend/test_session.py  # Run tests inside the backend container
-
-      # Push Docker images to DockerHub
-      - name: Push Docker images to DockerHub
-        run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker-compose push  # Push both frontend and backend images defined in docker-compose.yml
-
-      # Clean up Docker Compose services after tests
-      - name: Clean up Docker Compose services
-        run: |
-          docker compose down  # Stop and remove the containers
+  docker:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Build Docker Image
+        run: docker build -t fatimaimran/frontend-2 .
+      - name: Push Docker Image
+        run: docker push fatimaimran/frontend-2
