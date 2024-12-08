@@ -5,10 +5,15 @@ BASE_URL = "http://127.0.0.1:5000"
 
 def print_response(response, label):
     """Helper function to print response content safely."""
-    if response.status_code == 200:
-        print(f"{label} Response:", response.json())
-    else:
-        print(f"{label} failed with Status Code {response.status_code}. Response: {response.text}")
+    try:
+        # Attempt to print the response if it's in JSON format
+        if response.status_code == 200:
+            print(f"{label} Response:", response.json())
+        else:
+            print(f"{label} failed with Status Code {response.status_code}. Response: {response.text}")
+    except ValueError:
+        # If response is not JSON, print the raw text content
+        print(f"{label} returned non-JSON response. Status Code: {response.status_code}. Response: {response.text}")
 
 def test_signup():
     # Data for testing signup
