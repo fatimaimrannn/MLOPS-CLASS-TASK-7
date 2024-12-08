@@ -26,6 +26,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Adjust path to your requirements file if needed
 
+      # Start the backend app (make sure it's running before tests)
+      - name: Start backend server
+        run: |
+          nohup python app.py &  # Start backend server in the background
+
       # Run unit tests using pytest
       - name: Run unit tests
         run: |
@@ -60,4 +65,3 @@ jobs:
       - name: Clean up Docker Compose services
         run: |
           docker-compose down  # Stop and remove the containers
-
