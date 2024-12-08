@@ -40,20 +40,27 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v1
 
+      # Install Docker Compose V2 (Integrated with Docker CLI)
+      - name: Install Docker Compose V2
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo apt-get install -y docker-compose-plugin  # This installs Docker Compose V2
+
       # Build Docker images with Docker Compose
       - name: Build Docker images with Docker Compose
         run: |
-          docker-compose -f docker-compose.yml build  # Builds both frontend and backend
+          docker compose -f docker-compose.yml build  # Build both frontend and backend
 
       # Start Docker Compose services in detached mode
       - name: Start Docker Compose services
         run: |
-          docker-compose up -d  # Start the services in the background
+          docker compose up -d  # Start the services in the background
 
       # Run tests inside the running backend container
       - name: Run integration tests
         run: |
-          docker-compose exec backend pytest backend/test_login.py backend/test_signup.py backend/test_session.py  # Run tests inside the backend container
+          docker compose exec backend pytest backend/test_login.py backend/test_signup.py backend/test_session.py  # Run tests inside the backend container
 
       # Push Docker images to DockerHub
       - name: Push Docker images to DockerHub
@@ -64,4 +71,4 @@ jobs:
       # Clean up Docker Compose services after tests
       - name: Clean up Docker Compose services
         run: |
-          docker-compose down  # Stop and remove the containers
+          docker compose down  # Stop and remove the containers
