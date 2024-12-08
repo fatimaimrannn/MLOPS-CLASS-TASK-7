@@ -22,22 +22,18 @@ jobs:
       # Build backend Docker image
       - name: Build backend Docker image
         run: |
-          
 
       # Build frontend Docker image
       - name: Build frontend Docker image
         run: |
-          
 
       # Push backend Docker image to DockerHub
       - name: Push backend Docker image
         run: |
-          
 
       # Push frontend Docker image to DockerHub
       - name: Push frontend Docker image
         run: |
-          
 
       # Set up kubectl for Minikube
       - name: Set up kubectl
@@ -45,12 +41,26 @@ jobs:
         with:
           version: 'latest'  # Install the latest version of kubectl
 
+      # Set up Minikube
+      - name: Set up Minikube
+        run: |
+          curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          sudo chmod +x minikube
+          sudo mv minikube /usr/local/bin/
+
+          # Start Minikube
+          minikube start --driver=docker
+
+      # Set the kubectl context to Minikube
+      - name: Set kubectl context to Minikube
+        run: |
+          kubectl config use-context minikube
+
       # Deploy to Minikube (or your target Kubernetes environment)
       - name: Deploy to Minikube
         run: |
-          kubectl config use-context minikube  # Switch context to Minikube
-          
-         
+          kubectl set image deployment/weather-project-backend weather-project-backend=fatimaimran/weather-project-backend:$GITHUB_SHA
+          kubectl set image deployment/weather-project-frontend weather-project-frontend=fatimaimran/weather-project-frontend:$GITHUB_SHA
 
       # Optional: Check if the services are running properly in Minikube
       - name: Check Minikube services
